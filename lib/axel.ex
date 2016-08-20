@@ -4,6 +4,10 @@ defmodule Axel do
   Record.defrecord :xmlText,      Record.extract(:xmlText,      from_lib: "xmerl/include/xmerl.hrl")
   Record.defrecord :xmlAttribute, Record.extract(:xmlAttribute, from_lib: "xmerl/include/xmerl.hrl")
 
+  def init_node(xml, node_module) do
+    parse(xml) |> node_module.init_node
+  end
+
   @doc """
   Parses an XML string.
   """
