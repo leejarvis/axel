@@ -39,4 +39,10 @@ defmodule AxelTest do
     assert "Lorem ipsum" == Axel.find(doc, "//book/name") |> Axel.text
     assert nil == Axel.find(doc, "foo/bar")
   end
+
+  test "extracting attributes", %{doc: doc} do
+    author = Axel.find(doc, "//author")
+    assert "123" == Axel.attribute(author, "id")
+    assert nil == Axel.attribute(author, "foo")
+  end
 end

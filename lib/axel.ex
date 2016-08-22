@@ -1,7 +1,8 @@
 defmodule Axel do
   require Record
-  Record.defrecord :xmlElement, Record.extract(:xmlElement, from_lib: "xmerl/include/xmerl.hrl")
-  Record.defrecord :xmlText,    Record.extract(:xmlText,    from_lib: "xmerl/include/xmerl.hrl")
+  Record.defrecord :xmlElement,   Record.extract(:xmlElement,   from_lib: "xmerl/include/xmerl.hrl")
+  Record.defrecord :xmlText,      Record.extract(:xmlText,      from_lib: "xmerl/include/xmerl.hrl")
+  Record.defrecord :xmlAttribute, Record.extract(:xmlAttribute, from_lib: "xmerl/include/xmerl.hrl")
 
   def parse(xml) do
     {doc, []} = xml
@@ -24,6 +25,13 @@ defmodule Axel do
   def text(node) do
     case search(node, "./text()") do
       [xmlText(value: value)] -> List.to_string(value)
+      _ -> nil
+    end
+  end
+
+  def attribute(node, attr_name) do
+    case find(node, "./@#{attr_name}") do
+      xmlAttribute(value: value) -> List.to_string(value)
       _ -> nil
     end
   end
