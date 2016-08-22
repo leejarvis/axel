@@ -23,8 +23,8 @@ defmodule Axel do
   end
 
   def text(node) do
-    case search(node, "./text()") do
-      [xmlText(value: value)] -> List.to_string(value)
+    case find(node, "./text()") do
+      xmlText(value: value) -> List.to_string(value)
       _ -> nil
     end
   end
